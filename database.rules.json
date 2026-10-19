@@ -1,0 +1,23 @@
+{
+  "rules": {
+    "wishes": {
+      ".read": true,
+      ".indexOn": ["ts"],
+      "$id": {
+        ".write": "!data.exists() && newData.exists()",
+        "name": { ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 24" },
+        "text": { ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 140" },
+        "tint": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 4" },
+        "ts": { ".validate": "newData.val() == now" },
+        "$other": { ".validate": false }
+      }
+    },
+    "stats": {
+      ".read": true,
+      "visits": {
+        ".write": "newData.isNumber() && (!data.exists() || newData.val() == data.val() + 1)"
+      }
+    },
+    "$other": { ".read": false, ".write": false }
+  }
+}
